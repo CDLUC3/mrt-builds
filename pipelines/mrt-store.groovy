@@ -17,6 +17,7 @@ pipeline {
                 dir('mrt-core2') {
                   git branch: 'java-refactor', url: 'https://github.com/CDLUC3/mrt-core2.git'
                   sh "mvn -Dmaven.repo.local=$HOME/.m2-refactor clean install -DskipTests "
+                  sh "find ~/.m2-refactor -name 'mrt-core*'"
                 }
             }
         }
