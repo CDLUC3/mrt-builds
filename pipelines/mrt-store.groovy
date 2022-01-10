@@ -17,7 +17,6 @@ pipeline {
                 dir('mrt-core2') {
                   git branch: 'java-refactor', url: 'https://github.com/CDLUC3/mrt-core2.git'
                   sh "mvn -Dmaven.repo.local=$HOME/.m2-refactor clean install -DskipTests "
-                  sh "find ~/.m2-refactor -name 'mrt-core*'"
                 }
             }
         }
@@ -44,7 +43,7 @@ pipeline {
                 dir('conf'){
                   git branch: 'main',url: 'https://github.com/CDLUC3/mrt-builds.git'
                   dir('mock-config') {
-                    sh "mvn -Dmaven.repo.local=~$HOME/.m2-refactor clean install"
+                    sh "mvn -Dmaven.repo.local=$HOME/.m2-refactor clean install"
                   }
                 }
             }
