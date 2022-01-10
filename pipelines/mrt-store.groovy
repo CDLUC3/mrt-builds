@@ -17,6 +17,7 @@ pipeline {
                 dir('mrt-core2') {
                   git branch: 'java-refactor', url: 'https://github.com/CDLUC3/mrt-core2.git'
                   sh "mvn -Dmaven.repo.local=$HOME/.m2-refactor clean install -DskipTests "
+                  sh "find ~/.m2-refactor -name 'mrt-core*'"
                 }
             }
         }
@@ -40,6 +41,12 @@ pipeline {
             steps {
                 sh "mvn -Dmaven.repo.local=$HOME/.m2-refactor dependency:get -Dmaven.legacyLocalRepo=true -DgroupId=net.sf -DartifactId=jargs -Dversion=1.0 -Dpackaging=jar -DrepoUrl=https://mvn.cdlib.org/content/repositories/public/"
                 sh "mvn -Dmaven.repo.local=$HOME/.m2-refactor dependency:get -Dmaven.legacyLocalRepo=true -DgroupId=org.cdlib.mrt -DartifactId=mrt-jena -Dversion=1.0-SNAPSHOT -Dpackaging=jar -DrepoUrl=https://mvn.cdlib.org/content/repositories/cdl-snapshots/"
+                dir('conf'){
+                  git branch: 'main',url: 'https://github.com/CDLUC3/mrt-builds.git'
+                  dir('mock-config') {
+                    sh "mvn -Dmaven.repo.local=~$HOME/.m2-refactor clean install"
+                  }
+                }
             }
         }
         stage('Build Store') {
