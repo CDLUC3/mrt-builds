@@ -46,7 +46,7 @@ pipeline {
             steps {
                 dir('mrt-store'){
                   git branch: 'java-refactor', url: 'https://github.com/CDLUC3/mrt-store.git'
-                  sh "mvn -Dmaven.repo.local=~$HOME/.m2-refactor clean install"
+                  sh "mvn -Dmaven.repo.local=$HOME/.m2-refactor clean install"
                 }
             }
             post {
