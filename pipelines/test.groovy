@@ -16,14 +16,15 @@ pipeline {
     stages {
         stage('Preparation') { // for display purposes
             steps {
+                sh "env"
                 sh "rm -f build.current.txt rev.current.txt"
                 script {
                   try {
-                    sh "curl -s -S -f -o build.last.txt http://builds.cdlib.org/view/Development/job/Terry4/lastSuccessfulBuild/artifact/build.last.txt || touch build.last.txt"
+                    sh "curl -s -S -f -o build.last.txt ${JENKINS_URL}view/Development/job/Terry4/lastSuccessfulBuild/artifact/build.last.txt || touch build.last.txt"
                   } finally {
                   }
                   try {
-                    sh "curl -s -S -f -o rev.last.txt http://builds.cdlib.org/view/Development/job/Terry4/lastSuccessfulBuild/artifact/rev.last.txt || echo '${REV_MAJOR} ${REV_MINOR} ${REV_PATCH}' > rev.last.txt"
+                    sh "curl -s -S -f -o rev.last.txt ${JENKINS_URL}view/Development/job/Terry4/lastSuccessfulBuild/artifact/rev.last.txt || echo '${REV_MAJOR} ${REV_MINOR} ${REV_PATCH}' > rev.last.txt"
                   } finally {
                   }
                   def major = sh(script: "cut -d' ' -f1 rev.last.txt", returnStdout: true).toString().trim()        
