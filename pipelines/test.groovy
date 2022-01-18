@@ -68,12 +68,6 @@ pipeline {
                   git branch: "${env.BRANCH_BUILDS}", url: 'https://github.com/CDLUC3/mrt-builds.git'
                   sh "git remote get-url origin >> build.current.txt"
                   sh "git rev-parse HEAD >> build.current.txt"
-
-                  if (major < REV_MAJOR || minor < REV_MINOR) {
-                      major = REV_MAJOR
-                      minor = REV_MINOR
-                      patch = 0
-                  }
                 }
             }
         }
@@ -81,6 +75,12 @@ pipeline {
         stage('Compute semantic ver') { // for display purposes
             steps {
                 script {
+                  if (major < REV_MAJOR || minor < REV_MINOR) {
+                      major = REV_MAJOR
+                      minor = REV_MINOR
+                      patch = 0
+                  }
+
                   try {
                     sh "diff build.last.txt build.current.txt"
                   } catch (err) {
