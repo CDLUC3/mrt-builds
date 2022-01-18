@@ -119,7 +119,7 @@ pipeline {
                     patch = patch.toInteger() + 1
                   } 
                   sh "echo ${major} ${minor} ${patch} > rev.current.txt"
-                  sh "cp mrt-ingest/ingest-war/target/mrt-ingestwar-1.0-SNAPSHOT.war mrt-ingestwar-${major}.${minor}.${patch}.war"
+                  sh "cp mrt-ingest/mrt-ingest/ingest-war/target/mrt-ingestwar-1.0-SNAPSHOT.war mrt-ingestwar-${major}.${minor}.${patch}.war"
                 }
             }
         }
