@@ -1,10 +1,14 @@
 import groovy.json.JsonSlurper
 pipeline {
     /*
-     * build.last.txt - contains the commit hashes used for the last build that was run
+     * build.last.txt - contains the commit hashes for each repo used for the last build that was run
      * rev.last.txt - contains the semantic version for the prior build
-     * build.current.txt - contains commit hashes used in this current build
+     *
+     * build.current.txt - contains commit hashes for each repo used in this current build
      * rev.current.txt - calculated semantic version for this build 
+     *
+     * if the major or minor version changes, reset patch to 0
+     * if build.current.txt differs from build.last.txt, increment patch
      */
     environment {
       REV_MAJOR = 1 //manually increment for NON-backwards compatible changes
