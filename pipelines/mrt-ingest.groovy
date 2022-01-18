@@ -129,7 +129,7 @@ pipeline {
                 script {
                   sh "mv build.current.txt build.last.txt"
                   sh "mv rev.current.txt rev.last.txt"
-                  archiveArtifacts artifacts: "build.last.txt, rev.last.txt, mrt-ingestwar--${major}.${minor}.${patch}.war"
+                  archiveArtifacts artifacts: "build.last.txt, rev.last.txt, mrt-ingestwar-${major}.${minor}.${patch}.war"
                 } 
             }
         }
